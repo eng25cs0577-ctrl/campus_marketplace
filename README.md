@@ -119,6 +119,7 @@ Send `Authorization: Bearer <token>` on the routes marked 🔒. Errors always co
 | GET | `/api/products/:id` | One item. Seller contact details are included only for logged-in users |
 | GET | `/api/products/:id/image` | The photo bytes, sent with the stored `Content-Type` |
 | POST | `/api/products` 🔒 | Multipart form: `title, category_id, price, item_condition, description, image?`. Images only, 3 MB max |
+| PUT | `/api/products/:id/image` 🔒 | Add or replace a listing's photo (multipart `image`), owner only |
 | PATCH | `/api/products/:id/status` 🔒 | `{status: "available" \| "sold"}`, owner only |
 | DELETE | `/api/products/:id` 🔒 | Owner only |
 | GET | `/api/me/products` 🔒 | My listings, with how many students saved each one |

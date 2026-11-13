@@ -27,7 +27,7 @@ app.use(cors({
     return cb(null, false); // browser will block the response
   },
   allowedHeaders: ['Content-Type', 'Authorization'],
-  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
 }));
 app.use(express.json({ limit: '100kb' }));
 
@@ -61,7 +61,8 @@ const CONDITIONS = ['New', 'Like new', 'Good', 'Fair', 'Worn'];
 const PRODUCT_COLUMNS = `
   p.id, p.title, p.description, p.price, p.item_condition, p.status, p.created_at,
   p.category_id, c.name AS category, p.seller_id, u.name AS seller_name,
-  (p.image_data IS NOT NULL) AS has_image`;
+  (p.image_data IS NOT NULL) AS has_image,
+  FLOOR(EXTRACT(EPOCH FROM p.image_updated_at))::bigint AS image_version`;
 
 // ---------- Auth ----------
 async function loadUser(req) {
@@ -234,6 +235,7 @@ app.get('/api/products/:id/image', async (req, res) => {
   );
   if (!rows[0] || !rows[0].image_data) throw new HttpError(404, 'No photo for this item');
   res.set('Content-Type', rows[0].image_type || 'application/octet-stream');
+  // The frontend adds ?v=<image_version> to the URL, so a changed photo gets a new URL.
   res.set('Cache-Control', 'public, max-age=86400');
   res.set('Cross-Origin-Resource-Policy', 'cross-origin');
   res.send(rows[0].image_data);
@@ -255,8 +257,8 @@ app.post('/api/products', requireAuth, upload.single('image'), async (req, res) 
   if (!cat.rows[0]) throw bad('Unknown category');
 
   const { rows } = await query(
-    `INSERT INTO products (seller_id, category_id, title, description, price, item_condition, image_data, image_type)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+    `INSERT INTO products (seller_id, category_id, title, description, price, item_condition, image_data, image_type, image_updated_at)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, CASE WHEN $7::bytea IS NULL THEN NULL ELSE NOW() END)
      RETURNING id`,
     [req.user.id, categoryId, title, description, price, condition,
      req.file ? req.file.buffer : null, req.file ? req.file.mimetype : null]
@@ -270,6 +272,20 @@ async function loadOwnedProduct(productId, userId) {
   if (rows[0].seller_id !== userId) throw new HttpError(403, 'Only the seller can change this item');
   return rows[0];
 }
+
+// Add or replace the photo of an existing listing (owner only).
+app.put('/api/products/:id/image', requireAuth, upload.single('image'), async (req, res) => {
+  const id = toId(req.params.id, 'product id');
+  await loadOwnedProduct(id, req.user.id);
+  if (!req.file) throw bad('Please choose a photo to upload');
+  const { rows } = await query(
+    `UPDATE products SET image_data = $1, image_type = $2, image_updated_at = NOW()
+      WHERE id = $3
+      RETURNING FLOOR(EXTRACT(EPOCH FROM image_updated_at))::bigint AS image_version`,
+    [req.file.buffer, req.file.mimetype, id]
+  );
+  res.json({ id, has_image: true, image_version: rows[0].image_version });
+});
 
 app.patch('/api/products/:id/status', requireAuth, async (req, res) => {
   const id = toId(req.params.id, 'product id');

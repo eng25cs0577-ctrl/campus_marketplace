@@ -41,7 +41,34 @@ async function setupDatabase() {
     console.log('Fresh database detected — running seed.sql');
     await pool.query(fs.readFileSync(path.join(SQL_DIR, 'seed.sql'), 'utf8'));
   }
+  await loadDemoPhotos();
   console.log('Database ready');
+}
+
+// Gives the seeded demo items their photos (database/images/manifest.json).
+// Only touches a demo item that still has no photo, so it never overwrites a seller's own upload.
+async function loadDemoPhotos() {
+  const dir = path.join(SQL_DIR, 'images');
+  const manifestPath = path.join(dir, 'manifest.json');
+  if (!fs.existsSync(manifestPath)) return;
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  let added = 0;
+  for (const item of manifest.photos) {
+    const file = path.join(dir, item.file);
+    if (!fs.existsSync(file)) continue;
+    const { rowCount } = await query(
+      `UPDATE products p
+          SET image_data = $1, image_type = $2, image_updated_at = NOW()
+         FROM users u
+        WHERE u.id = p.seller_id
+          AND u.email = $3
+          AND p.title = $4
+          AND p.image_data IS NULL`,
+      [fs.readFileSync(file), item.type || 'image/jpeg', item.seller, item.title]
+    );
+    added += rowCount;
+  }
+  if (added) console.log(`Added ${added} demo photo(s)`);
 }
 
 module.exports = { pool, query, setupDatabase };

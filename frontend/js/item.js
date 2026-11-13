@@ -19,6 +19,11 @@ function render() {
       <div class="actions">
         <button class="btn btn-primary" id="toggle-status">${sold ? 'Mark as available' : 'Mark as sold'}</button>
         <button class="btn btn-danger" id="delete-btn">Delete listing</button>
+      </div>
+      <div class="actions">
+        <label class="btn" for="photo-input" style="margin:0">${p.has_image ? '📷 Change photo' : '📷 Add a photo'}</label>
+        <input type="file" id="photo-input" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+        <span class="muted small" id="photo-status">JPEG, PNG, WebP or GIF · max 3 MB</span>
       </div>`;
   } else if (me) {
     actions = `
@@ -87,6 +92,24 @@ function bind() {
       await api(`/api/products/${product.id}`, { method: 'DELETE' });
       location.href = 'account.html';
     } catch (err) { showMessage(errorEl, err.message); del.disabled = false; }
+  });
+
+  const photoInput = document.getElementById('photo-input');
+  if (photoInput) photoInput.addEventListener('change', async () => {
+    const file = photoInput.files[0];
+    const status = document.getElementById('photo-status');
+    if (!file) return;
+    if (!/^image\/(jpeg|png|webp|gif)$/.test(file.type)) return showMessage(errorEl, 'Please choose a JPEG, PNG, WebP or GIF image.');
+    if (file.size > 3 * 1024 * 1024) return showMessage(errorEl, 'That photo is larger than 3 MB. Please pick a smaller one.');
+    const fd = new FormData();
+    fd.append('image', file);
+    status.textContent = 'Uploading…';
+    try {
+      const res = await api(`/api/products/${product.id}/image`, { method: 'PUT', form: fd });
+      product.has_image = true;
+      product.image_version = res.image_version;
+      render();
+    } catch (err) { showMessage(errorEl, err.message); status.textContent = ''; }
   });
 
   const wish = document.getElementById('wish-btn');

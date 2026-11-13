@@ -96,7 +96,9 @@ async function api(path, { method = 'GET', body, form } = {}) {
   return data;
 }
 
-const imageUrl = (id) => `${window.API_BASE_URL}/api/products/${id}/image`;
+// image_version changes whenever the photo changes, so browsers never show a stale cached photo.
+const imageUrl = (p) =>
+  `${window.API_BASE_URL}/api/products/${p.id}/image${p.image_version ? '?v=' + p.image_version : ''}`;
 
 // ---------- Header / footer ----------
 function renderHeader() {
@@ -144,7 +146,7 @@ function requireLogin() {
 // ---------- Product visuals ----------
 function photoHtml(p, cls = '') {
   if (p.has_image) {
-    return `<div class="photo ${cls}"><img src="${imageUrl(p.id)}" alt="${esc(p.title)}" loading="lazy"></div>`;
+    return `<div class="photo ${cls}"><img src="${imageUrl(p)}" alt="${esc(p.title)}" loading="lazy"></div>`;
   }
   const letter = esc((p.category || p.title || '?').trim().charAt(0).toUpperCase());
   return `<div class="photo placeholder ${cls}" aria-hidden="true"><span>${letter}</span></div>`;
