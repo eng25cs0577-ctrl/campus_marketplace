@@ -6,7 +6,7 @@ A website where college students buy and sell used items: textbooks, calculators
 
 | Part | URL |
 |---|---|
-| Website (GitHub Pages) | https://YOUR-USERNAME.github.io/campus-marketplace/ |
+| Website (GitHub Pages) | https://eng25cs0577-ctrl.github.io/campus_marketplace/ |
 | API (Render) | https://campus-marketplace-api.onrender.com/api/health |
 | Database | Neon PostgreSQL (private) |
 
@@ -43,11 +43,11 @@ Photos are stored inside the database (`products.image_data BYTEA`) and served b
 You need Node.js 18 or newer and PostgreSQL (a local install, or a Neon database).
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/campus-marketplace.git
+git clone https://github.com/eng25cs0577-ctrl/campus_marketplace.git
 ```
 
 ```bash
-cd campus-marketplace/backend
+cd campus_marketplace/backend
 ```
 
 ```bash
@@ -172,10 +172,10 @@ psql "YOUR_NEON_CONNECTION_STRING" -f database/schema.sql -f database/seed.sql
 ### 2. Backend: Render
 
 1. Go to https://render.com and sign up with GitHub.
-2. Click **New + → Blueprint**, pick the `campus-marketplace` repository and click **Connect**. Render reads `render.yaml` and proposes a free web service called `campus-marketplace-api` (root directory `backend`, build `npm install`, start `npm start`, health check `/api/health`).
+2. Click **New + → Blueprint**, pick the `campus_marketplace` repository and click **Connect**. Render reads `render.yaml` and proposes a free web service called `campus-marketplace-api` (root directory `backend`, build `npm install`, start `npm start`, health check `/api/health`).
 3. Render asks for the two `sync: false` variables:
    - `DATABASE_URL`: paste the Neon connection string.
-   - `FRONTEND_URL`: `https://YOUR-USERNAME.github.io` (the origin only, with no path).
+   - `FRONTEND_URL`: `https://eng25cs0577-ctrl.github.io` (the origin only, with no path).
 4. Click **Apply**. The first deploy takes 2–3 minutes. The logs should end with `Database ready` and `API listening on port …`.
 5. Copy the service URL shown under the service name, for example `https://campus-marketplace-api.onrender.com`, and open `<url>/api/health` to check it.
 
@@ -185,7 +185,7 @@ If you'd rather not use a Blueprint, choose **New + → Web Service** and enter 
 
 1. In the GitHub repo, go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
 2. Put your Render URL in `RENDER_API_URL` in `frontend/js/config.js`, then commit and push to `main`.
-3. The **Deploy frontend to GitHub Pages** workflow (Actions tab) publishes only the `frontend/` folder. The site appears at `https://YOUR-USERNAME.github.io/campus-marketplace/`.
-4. On Render, check that `FRONTEND_URL` is `https://YOUR-USERNAME.github.io`. Changing it triggers a redeploy.
+3. The **Deploy frontend to GitHub Pages** workflow (Actions tab) publishes only the `frontend/` folder. The site appears at `https://eng25cs0577-ctrl.github.io/campus_marketplace/`.
+4. On Render, check that `FRONTEND_URL` is `https://eng25cs0577-ctrl.github.io`. Changing it triggers a redeploy.
 
-All links between pages are relative (`item.html?id=3`, `css/style.css`), so the site works under the `/campus-marketplace/` sub-path.
+All links between pages are relative (`item.html?id=3`, `css/style.css`), so the site works under the `/campus_marketplace/` sub-path.
