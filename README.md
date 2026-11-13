@@ -7,7 +7,7 @@ A website where college students buy and sell used items: textbooks, calculators
 | Part | URL |
 |---|---|
 | Website (GitHub Pages) | https://eng25cs0577-ctrl.github.io/campus_marketplace/ |
-| API (Render) | https://campus-marketplace-api.onrender.com/api/health |
+| API (Render) | https://campus-marketplace-api-nkyy.onrender.com/api/health |
 | Database | Neon PostgreSQL (private) |
 
 Demo logins: `aarav@campus.edu` / `password123` and `priya@campus.edu` / `password123`
@@ -177,7 +177,7 @@ psql "YOUR_NEON_CONNECTION_STRING" -f database/schema.sql -f database/seed.sql
    - `DATABASE_URL`: paste the Neon connection string.
    - `FRONTEND_URL`: `https://eng25cs0577-ctrl.github.io` (the origin only, with no path).
 4. Click **Apply**. The first deploy takes 2–3 minutes. The logs should end with `Database ready` and `API listening on port …`.
-5. Copy the service URL shown under the service name, for example `https://campus-marketplace-api.onrender.com`, and open `<url>/api/health` to check it.
+5. Copy the service URL shown under the service name, for example `https://campus-marketplace-api-nkyy.onrender.com`, and open `<url>/api/health` to check it.
 
 If you'd rather not use a Blueprint, choose **New + → Web Service** and enter the same settings by hand. Set the root directory to `backend`.
 

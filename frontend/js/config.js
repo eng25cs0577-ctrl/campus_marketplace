@@ -1,7 +1,7 @@
 // Where the API lives.
 // After deploying the backend to Render, replace the URL below with yours
 // (Render dashboard → your service → the URL under the service name).
-const RENDER_API_URL = 'https://campus-marketplace-api.onrender.com';
+const RENDER_API_URL = 'https://campus-marketplace-api-nkyy.onrender.com';
 
 const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
 
