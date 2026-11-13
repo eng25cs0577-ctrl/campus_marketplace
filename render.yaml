@@ -1,0 +1,18 @@
+# Render Blueprint — deploys the backend/ folder as a free Node web service.
+services:
+  - type: web
+    name: campus-marketplace-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATABASE_URL
+        sync: false   # paste your Neon connection string in the Render dashboard
+      - key: FRONTEND_URL
+        sync: false   # e.g. https://YOUR-USERNAME.github.io
