@@ -5,6 +5,13 @@ const productId = new URLSearchParams(location.search).get('id');
 
 let product = null;
 
+// Attribution line for Creative Commons demo photos. Links are only used when they are http(s).
+function creditHtml(c) {
+  if (!c) return '';
+  const link = (url, text) => /^https?:\/\//.test(url || '') ? `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(text)}</a>` : esc(text);
+  return `<p class="photo-credit">Photo: ${link(c.source, c.photo)} by ${esc(c.creator)} · ${link(c.license_url, c.license)}</p>`;
+}
+
 function render() {
   const p = product;
   const me = Auth.user;
@@ -50,9 +57,12 @@ function render() {
 
   root.innerHTML = `
     <div class="item-layout">
-      <div class="item-photo">
-        ${photoHtml(p)}
-        ${sold ? '<span class="stamp big">Sold</span>' : ''}
+      <div>
+        <div class="item-photo">
+          ${photoHtml(p)}
+          ${sold ? '<span class="stamp big">Sold</span>' : ''}
+        </div>
+        ${creditHtml(p.image_credit)}
       </div>
       <div>
         <span class="chip">${esc(p.category)}</span>

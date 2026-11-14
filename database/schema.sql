@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS products (
   image_data     BYTEA,                                            -- photo bytes live in the DB
   image_type     TEXT,                                             -- e.g. image/jpeg
   image_updated_at TIMESTAMPTZ,                                    -- changes the photo URL so browsers refetch
+  image_credit   TEXT,                                             -- attribution for licensed demo photos
   status         TEXT        NOT NULL DEFAULT 'available'
                  CHECK (status IN ('available', 'sold')),
   created_at     TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -54,6 +55,7 @@ CREATE TABLE IF NOT EXISTS messages (
 
 -- Upgrade databases created before image_updated_at existed.
 ALTER TABLE products ADD COLUMN IF NOT EXISTS image_updated_at TIMESTAMPTZ;
+ALTER TABLE products ADD COLUMN IF NOT EXISTS image_credit TEXT;
 
 CREATE INDEX IF NOT EXISTS idx_products_status   ON products(status);
 CREATE INDEX IF NOT EXISTS idx_products_category ON products(category_id);

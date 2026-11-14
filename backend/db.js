@@ -58,13 +58,14 @@ async function loadDemoPhotos() {
     if (!fs.existsSync(file)) continue;
     const { rowCount } = await query(
       `UPDATE products p
-          SET image_data = $1, image_type = $2, image_updated_at = NOW()
+          SET image_data = $1, image_type = $2, image_updated_at = NOW(), image_credit = $5
          FROM users u
         WHERE u.id = p.seller_id
           AND u.email = $3
           AND p.title = $4
           AND p.image_data IS NULL`,
-      [fs.readFileSync(file), item.type || 'image/jpeg', item.seller, item.title]
+      [fs.readFileSync(file), item.type || 'image/jpeg', item.seller, item.title,
+       item.credit ? JSON.stringify(item.credit) : null]
     );
     added += rowCount;
   }

@@ -1,0 +1,161 @@
+{
+  "note": "Demo photos for the seeded items. All are Creative Commons / public domain photos found via Openverse (Flickr). Credits below; the backend loads them on startup.",
+  "photos": [
+    {
+      "title": "H.C. Verma — Concepts of Physics (Vol 1 & 2)",
+      "seller": "aarav@campus.edu",
+      "file": "hc-verma-physics.jpg",
+      "type": "image/jpeg",
+      "credit": {
+        "photo": "Thick encyclopedias with colorful hardcovers",
+        "creator": "Horia Varlan",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/10361931@N06/4268896936"
+      }
+    },
+    {
+      "title": "Casio fx-991ES Plus scientific calculator",
+      "seller": "aarav@campus.edu",
+      "file": "casio-fx991es.jpg",
+      "type": "image/jpeg",
+      "credit": {
+        "photo": "Casio FX-61F Scientific Calculator",
+        "creator": "eevblog",
+        "license": "CC0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "source": "https://www.flickr.com/photos/58072483@N02/43436332725"
+      }
+    },
+    {
+      "title": "White lab coat (size M) + safety goggles",
+      "seller": "priya@campus.edu",
+      "file": "lab-coat.jpg",
+      "type": "image/jpeg",
+      "credit": {
+        "photo": "SOLD: Imagination coats: lab coats made in USA; good for all kinds of creative work",
+        "creator": "TheLivingRoominKenmore",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/36910487@N07/4207244283"
+      }
+    },
+    {
+      "title": "Prestige electric kettle 1.5 L",
+      "seller": "priya@campus.edu",
+      "file": "electric-kettle.jpg",
+      "type": "image/jpeg",
+      "credit": {
+        "photo": "Electric Kettle",
+        "creator": "celesteh",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/27283274@N00/27648573220"
+      }
+    },
+    {
+      "title": "Single bed mattress (3 x 6 ft) + pillow",
+      "seller": "aarav@campus.edu",
+      "file": "mattress.jpg",
+      "type": "image/jpeg",
+      "credit": {
+        "photo": "Sleep Number Mattress",
+        "creator": "Eddie~S",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/13542313@N00/872459661"
+      }
+    },
+    {
+      "title": "Engineering drawing kit — mini drafter, set squares, compass",
+      "seller": "priya@campus.edu",
+      "file": "drawing-kit.jpg",
+      "type": "image/jpeg",
+      "credit": {
+        "photo": "Drafting tools, speed bows and more",
+        "creator": "el cajon yacht club",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/60944636@N00/23305422076"
+      }
+    },
+    {
+      "title": "Arduino Uno starter kit with sensors",
+      "seller": "aarav@campus.edu",
+      "file": "arduino-kit.jpg",
+      "type": "image/jpeg",
+      "credit": {
+        "photo": "Arduino Uno",
+        "creator": "Snootlab",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/66478851@N06/6052455554"
+      }
+    },
+    {
+      "title": "College fest hoodie (size L), navy blue",
+      "seller": "priya@campus.edu",
+      "file": "fest-hoodie.jpg",
+      "type": "image/jpeg",
+      "credit": {
+        "photo": "Puma Sweatshirts at Costco",
+        "creator": "m01229",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/39908901@N06/10825379913"
+      }
+    },
+    {
+      "title": "RD Sharma Class 12 Mathematics + GATE previous papers",
+      "seller": "aarav@campus.edu",
+      "file": "maths-books.jpg",
+      "type": "image/jpeg",
+      "credit": {
+        "photo": "Math Textbook",
+        "creator": "thekirbster",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/17157315@N00/32161239364"
+      }
+    },
+    {
+      "title": "boAt Rockerz 450 Bluetooth headphones",
+      "seller": "priya@campus.edu",
+      "file": "headphones.jpg",
+      "type": "image/jpeg",
+      "credit": {
+        "photo": "Headphone",
+        "creator": "matsuyuki",
+        "license": "CC BY-SA 2.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/12173213@N00/6930145454"
+      }
+    },
+    {
+      "title": "Yonex badminton racket + 3 shuttles",
+      "seller": "aarav@campus.edu",
+      "file": "badminton.jpg",
+      "type": "image/jpeg",
+      "credit": {
+        "photo": "Badminton shuttlecock close-up",
+        "creator": "Ivan Radic",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/26344495@N05/47541589452"
+      }
+    },
+    {
+      "title": "Casio fx-82MS basic scientific calculator",
+      "seller": "priya@campus.edu",
+      "file": "casio-fx82ms.jpg",
+      "type": "image/jpeg",
+      "credit": {
+        "photo": "Casio fx82d pack",
+        "creator": "Asim Bijarani",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/8624431@N08/3364372005"
+      }
+    }
+  ]
+}

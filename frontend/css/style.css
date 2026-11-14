@@ -199,6 +199,8 @@ input:focus, select:focus, textarea:focus, .btn:focus-visible, a:focus-visible {
 .item-photo { position: relative; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--card); }
 .item-photo .photo { aspect-ratio: 4 / 3; }
 .item-photo .photo img { object-fit: contain; background: #fff; }
+.photo-credit { font-size: .75rem; color: var(--ink-soft); margin: 6px 2px 0; }
+.photo-credit a { color: inherit; }
 .item-meta { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; margin: 18px 0; font-size: .95rem; }
 .item-meta dt { color: var(--ink-soft); }
 .item-meta dd { margin: 0; font-weight: 500; }

@@ -96,7 +96,7 @@ users ─┬─< sessions                 one user, many login sessions
 | `users` | id SERIAL PK, name, email UNIQUE, phone, password_hash, created_at | Passwords are bcrypt-hashed and never stored in plain text |
 | `sessions` | token PK, user_id FK → users, created_at | A random 64-character hex token is created at login and deleted at logout |
 | `categories` | id SERIAL PK, name UNIQUE | 8 seeded categories |
-| `products` | id, seller_id FK, category_id FK, title, description, price INTEGER CHECK (price >= 0), item_condition, image_data BYTEA, image_type, status CHECK IN ('available','sold'), created_at | Prices are whole rupees. Indexed on `status`, `category_id` and `seller_id` |
+| `products` | id, seller_id FK, category_id FK, title, description, price INTEGER CHECK (price >= 0), item_condition, image_data BYTEA, image_type, image_updated_at, image_credit, status CHECK IN ('available','sold'), created_at | Prices are whole rupees. Indexed on `status`, `category_id` and `seller_id` |
 | `wishlist` | user_id FK, product_id FK, **PRIMARY KEY (user_id, product_id)** | The composite key stops anyone saving the same item twice |
 | `messages` | id, product_id FK, sender_id FK, receiver_id FK, body, created_at | Each conversation is the set of messages about one product between two users |
 
@@ -151,6 +151,29 @@ Send `Authorization: Bearer <token>` on the routes marked 🔒. Errors always co
 - **`RETURNING`** to get the new id back from an `INSERT`.
 
 The Insights page shows the exact SQL behind each section under **Show the SQL**.
+
+---
+
+## Demo photos
+
+The 12 seeded items have real photos stored in `database/images/`. When the backend starts, it copies each photo into the database (`products.image_data`) for any demo item that doesn't have a photo yet. It never overwrites a photo a seller uploaded. Sellers can add or change a photo from the item page with **📷 Add a photo / Change photo**.
+
+All photos are Creative Commons or public domain, found through [Openverse](https://openverse.org). The item page shows each photo's credit under the picture.
+
+| Item | Photo | License |
+|---|---|---|
+| H.C. Verma — Concepts of Physics (Vol 1 & 2) | [Thick encyclopedias with colorful hardcovers](https://www.flickr.com/photos/10361931@N06/4268896936) by Horia Varlan | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) |
+| Casio fx-991ES Plus scientific calculator | [Casio FX-61F Scientific Calculator](https://www.flickr.com/photos/58072483@N02/43436332725) by eevblog | [CC0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| White lab coat (size M) + safety goggles | [SOLD: Imagination coats: lab coats made in USA; good for all kinds of creative work](https://www.flickr.com/photos/36910487@N07/4207244283) by TheLivingRoominKenmore | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) |
+| Prestige electric kettle 1.5 L | [Electric Kettle](https://www.flickr.com/photos/27283274@N00/27648573220) by celesteh | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) |
+| Single bed mattress (3 x 6 ft) + pillow | [Sleep Number Mattress](https://www.flickr.com/photos/13542313@N00/872459661) by Eddie~S | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) |
+| Engineering drawing kit — mini drafter, set squares, compass | [Drafting tools, speed bows and more](https://www.flickr.com/photos/60944636@N00/23305422076) by el cajon yacht club | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) |
+| Arduino Uno starter kit with sensors | [Arduino Uno](https://www.flickr.com/photos/66478851@N06/6052455554) by Snootlab | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) |
+| College fest hoodie (size L), navy blue | [Puma Sweatshirts at Costco](https://www.flickr.com/photos/39908901@N06/10825379913) by m01229 | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) |
+| RD Sharma Class 12 Mathematics + GATE previous papers | [Math Textbook](https://www.flickr.com/photos/17157315@N00/32161239364) by thekirbster | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) |
+| boAt Rockerz 450 Bluetooth headphones | [Headphone](https://www.flickr.com/photos/12173213@N00/6930145454) by matsuyuki | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/) |
+| Yonex badminton racket + 3 shuttles | [Badminton shuttlecock close-up](https://www.flickr.com/photos/26344495@N05/47541589452) by Ivan Radic | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) |
+| Casio fx-82MS basic scientific calculator | [Casio fx82d pack](https://www.flickr.com/photos/8624431@N08/3364372005) by Asim Bijarani | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) |
 
 ---
 

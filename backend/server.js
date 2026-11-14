@@ -211,7 +211,7 @@ app.get('/api/products', async (req, res) => {
 app.get('/api/products/:id', optionalAuth, async (req, res) => {
   const id = toId(req.params.id, 'product id');
   const { rows } = await query(
-    `SELECT ${PRODUCT_COLUMNS}, u.email AS seller_email, u.phone AS seller_phone,
+    `SELECT ${PRODUCT_COLUMNS}, u.email AS seller_email, u.phone AS seller_phone, p.image_credit,
             (SELECT COUNT(*)::int FROM wishlist w WHERE w.product_id = p.id) AS saves,
             EXISTS (SELECT 1 FROM wishlist w WHERE w.product_id = p.id AND w.user_id = $2) AS in_wishlist
        FROM products p
@@ -224,6 +224,8 @@ app.get('/api/products/:id', optionalAuth, async (req, res) => {
   if (!product) throw new HttpError(404, 'Item not found');
   // Contact details only for logged-in users.
   if (!req.user) { delete product.seller_email; delete product.seller_phone; }
+  try { product.image_credit = product.image_credit ? JSON.parse(product.image_credit) : null; }
+  catch { product.image_credit = null; }
   res.json({ product });
 });
 
@@ -279,7 +281,7 @@ app.put('/api/products/:id/image', requireAuth, upload.single('image'), async (r
   await loadOwnedProduct(id, req.user.id);
   if (!req.file) throw bad('Please choose a photo to upload');
   const { rows } = await query(
-    `UPDATE products SET image_data = $1, image_type = $2, image_updated_at = NOW()
+    `UPDATE products SET image_data = $1, image_type = $2, image_updated_at = NOW(), image_credit = NULL
       WHERE id = $3
       RETURNING FLOOR(EXTRACT(EPOCH FROM image_updated_at))::bigint AS image_version`,
     [req.file.buffer, req.file.mimetype, id]
